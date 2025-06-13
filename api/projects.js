@@ -1,8 +1,8 @@
 const { MongoClient } = require('mongodb');
 
-module.exports = async (req, res) => {
+export default async function handler(req, res) {
   // Set CORS headers
-  res.setHeader('Access-Control-Allow-Origin', '*'); // Or specify your domain
+  res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
@@ -29,7 +29,7 @@ module.exports = async (req, res) => {
     console.log('Connected to MongoDB');
     
     const db = client.db('portfolio');
-    const projects = await db.collection('projects').find().limit(10).toArray();
+    const projects = await db.collection('projects').find().limit(3).toArray();
     
     res.status(200).json({ 
       success: true,
@@ -45,4 +45,4 @@ module.exports = async (req, res) => {
   } finally {
     await client.close();
   }
-};
+}
