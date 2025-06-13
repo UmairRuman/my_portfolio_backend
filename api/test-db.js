@@ -2,34 +2,34 @@ const { MongoClient } = require('mongodb');
 
 module.exports = async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET');
   
-  if (req.method !== 'GET') {
-    return res.status(405).json({ error: 'Method not allowed' });
-  }
-
   const uri = process.env.MONGODB_URI;
+  
   if (!uri) {
-    return res.status(500).json({ error: 'Database configuration missing' });
+    return res.status(500).json({ 
+      error: 'MONGODB_URI not found',
+      env: Object.keys(process.env).filter(key => key.includes('MONGO'))
+    });
   }
 
+  // Don't expose the full URI for security, just test connection
   const client = new MongoClient(uri);
 
   try {
     await client.connect();
     const db = client.db('portfolio');
-    const projects = await db.collection('projects').find().limit(3).toArray();
+    const collections = await db.listCollections().toArray();
     
     res.status(200).json({ 
-      success: true,
-      results: projects,
-      count: projects.length 
+      message: 'Database connection successful',
+      database: 'portfolio',
+      collections: collections.map(c => c.name),
+      uri_configured: !!uri
     });
   } catch (error) {
-    console.error('Database error:', error);
     res.status(500).json({ 
       error: 'Database connection failed',
-      message: error.message 
+      message: error.message
     });
   } finally {
     await client.close();
