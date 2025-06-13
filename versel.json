@@ -11,5 +11,10 @@
         "src": "/api/projects",
         "dest": "api/projects.js"
       }
-    ]
+    ],
+    "functions": {
+      "api/**/*.js": {
+        "includeFiles": ["api/**"]
+      }
+    }
   }
