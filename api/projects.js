@@ -11,10 +11,13 @@ module.exports = async (req, res) => {
   try {
     await client.connect();
     const db = client.db('portfolio');
-    const projects = await db.collection('projects').find().limit(10).toArray();
+    const projects = await db.collection('projects').find().limit(3).toArray();
+    res.setHeader('Access-Control-Allow-Origin', 'https://your-site-name.netlify.app'); // Update with your Netlify URL
+    res.setHeader('Access-Control-Allow-Methods', 'GET');
     res.status(200).json({ results: projects });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error('Error in projects function:', error);
+    res.status(500).json({ error: 'Internal server error' });
   } finally {
     await client.close();
   }
