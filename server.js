@@ -11,7 +11,7 @@ const app = express();
 
 app.use(express.json());
 app.use('/utils/images', express.static(path.join(__dirname, 'backend', 'src', 'utils', 'images')));
-app.use(cors({ origin: 'http://localhost:5173' }));
+app.use(cors({ origin: '*' })); // Allow all origins for testing
 
 const connectDB = require('./backend/src/config/db'); 
 connectDB().catch(err => console.log(`MongoDB connection error: ${err.message}`));
