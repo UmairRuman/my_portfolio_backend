@@ -11,7 +11,7 @@ const app = express();
 
 app.use(express.json());
 app.use('/utils/images', express.static(path.join(__dirname, 'backend', 'src', 'utils', 'images')));
-app.use(cors({ origin: 'https://UmairRumanPortfolio.netlify.app' }));
+app.use(cors({ origin: 'https://umairrumanportfolio.netlify.app' })); // Match exact casing
 
 const connectDB = require('../app/backend/src/config/db'); 
 connectDB().catch(err => console.log(`MongoDB connection error: ${err.message}`));
