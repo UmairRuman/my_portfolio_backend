@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const projectRoutes = require('./backend/src/routes/projects');
+const projectRoutes = require('../app/backend/src/routes/projects');
 const path = require('path');
 const cors = require('cors');
 
@@ -13,7 +13,7 @@ app.use(express.json());
 app.use('/utils/images', express.static(path.join(__dirname, 'backend', 'src', 'utils', 'images')));
 app.use(cors({ origin: '*' })); // Allow all origins for testing
 
-const connectDB = require('./backend/src/config/db'); 
+const connectDB = require('../app/backend/src/config/db'); 
 connectDB().catch(err => console.log(`MongoDB connection error: ${err.message}`));
 
 app.use('/api/projects', projectRoutes);

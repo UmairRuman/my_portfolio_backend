@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Project = require('../../src/models/project');
+const Project = require('../models/project');
 
 // Get all projects with pagination
 router.get('/', async (req, res) => {
