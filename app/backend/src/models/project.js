@@ -1,11 +1,30 @@
 const mongoose = require('mongoose');
 
 const projectSchema = new mongoose.Schema({
-  title: { type: String, required: true },
-  short_description: String,
-  detailed_description: String,
-  images: [{ type: String }],
-  category: [String],
+  title: { 
+    type: String, 
+    required: true,
+    trim: true
+  },
+  short_description: {
+    type: String,
+    trim: true
+  },
+  detailed_description: {
+    type: String,
+    trim: true
+  },
+  images: [{ 
+    type: String,
+    trim: true
+  }],
+  category: [{
+    type: String,
+    trim: true
+  }],
+}, {
+  timestamps: true
 });
 
-module.exports = mongoose.model('Project', projectSchema);
+// Prevent re-compilation error
+module.exports = mongoose.models.Project || mongoose.model('Project', projectSchema);

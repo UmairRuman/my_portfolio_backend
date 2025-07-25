@@ -1,15 +1,26 @@
 {
-    "version": 2,
-    "builds": [
-      {
-        "src": "api/**/*.js",
-        "use": "@vercel/node"
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/**/*.js",
+      "use": "@vercel/node",
+      "config": {
+        "maxLambdaSize": "50mb"
       }
-    ],
-    "routes": [
-      {
-        "src": "/api/projects",
-        "dest": "api/projects.js"
-      }
-    ]
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/projects(.*)",
+      "dest": "api/projects.js"
+    }
+  ],
+  "functions": {
+    "api/projects.js": {
+      "maxDuration": 30
+    }
+  },
+  "env": {
+    "MONGODB_URI": "@mongodb_uri"
   }
+}
