@@ -14,21 +14,19 @@ const {car_wash_app_detailed_description,
 
   mongoose.connect(process.env.MONGODB_URI || 'mongodb+srv://programmerumair29:UWscPCqj2zs5pw8E@cluster0.lkipgdk.mongodb.net/portfolio?retryWrites=true&w=majority');
 
-const getProjectImages = (projectFolder) => {
-  const projectPath = path.join(__dirname, 'src', 'utils', 'images', 'projects', projectFolder);
-  console.log(`Reading directory: ${projectPath}`);
-  try {
-    const files = fs.readdirSync(projectPath).filter(file => {
-      const ext = path.extname(file).toLowerCase();
-      return ext === '.jpg' || ext === '.jpeg' || ext === '.png'; // Support jpg, jpeg, png
-    });
-    console.log(`Found files in ${projectFolder}: ${files}`);
-    return files.map(file => `/utils/images/projects/${projectFolder}/${file}`);
-  } catch (err) {
-    console.error(`Error reading ${projectFolder} images: ${err.message}`);
-    return [];
-  }
-};
+  const getProjectImages = (projectFolder) => {
+    const projectPath = path.join(__dirname, '..', '..', 'public', 'images', 'projects', projectFolder);
+    try {
+      const files = fs.readdirSync(projectPath).filter(file => {
+        const ext = path.extname(file).toLowerCase();
+        return ext === '.jpg' || ext === '.jpeg' || ext === '.png';
+      });
+      return files.map(file => `/images/projects/${projectFolder}/${file}`);
+    } catch (err) {
+      console.error(`Error reading ${projectFolder} images: ${err.message}`);
+      return [];
+    }
+  };
 
 const projects = [
   {
