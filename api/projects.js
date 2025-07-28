@@ -1,9 +1,6 @@
 const mongoose = require('mongoose');
 const Project = require('../app/backend/src/models/project');
 
-// Disable buffering for serverless
-mongoose.set('bufferCommands', false);
-
 // Singleton connection
 let cachedDb = null;
 
@@ -18,13 +15,7 @@ async function connectToDatabase() {
       await mongoose.disconnect();
     }
     
-    const db = await mongoose.connect(process.env.MONGODB_URI, {
-      serverSelectionTimeoutMS: 5000,
-      socketTimeoutMS: 45000,
-      maxPoolSize: 10,
-      minPoolSize: 1,
-      bufferCommands: false
-    });
+    const db = await mongoose.connect(process.env.MONGODB_URI);
     
     cachedDb = db;
     console.log('MongoDB connected successfully');

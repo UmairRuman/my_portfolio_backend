@@ -3,27 +3,12 @@ const mongoose = require('mongoose');
 const projectSchema = new mongoose.Schema({
   title: { 
     type: String, 
-    required: true,
-    trim: true
+    required: true
   },
-  short_description: {
-    type: String,
-    trim: true
-  },
-  detailed_description: {
-    type: String,
-    trim: true
-  },
-  images: [{ 
-    type: String,
-    trim: true
-  }],
-  category: [{
-    type: String,
-    trim: true
-  }],
-}, {
-  timestamps: true
+  short_description: String,
+  detailed_description: String,
+  images: [String],
+  category: [String]
 });
 
 // Prevent re-compilation error
